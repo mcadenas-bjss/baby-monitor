@@ -26,13 +26,8 @@ jobs:
           persist-credentials: true
       - name: Update
         uses: actions/github-script@v6
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
-          GITHUB_REF: ${{ github.ref }}
         with:
           script: |
-            const { GITHUB_TOKEN, GITHUB_REPOSITORY, GITHUB_REF } = process.env
             const semverMap = {
               feat: "minor",
               fix: "patch",
@@ -44,13 +39,10 @@ jobs:
 
             async function update() {
               if (version) {
-                // await exec.exec(`git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}`)
                 await exec.exec('git config --local user.name "github-actions[bot]"');
                 await exec.exec('git config --local user.email "github-actions[bot]@users.noreply.github.com"');
-                // await exec.exec(`git checkout ${GITHUB_REF}`)
                 await exec.exec("npm version " + version);
                 await exec.exec("git status");
-                // await exec.exec("git push");
               } else {
                 console.log("To update package version use one of the following in your PR title:");
                 console.table(semverMap);
@@ -58,9 +50,6 @@ jobs:
             }
 
             update();
-      - name: check
-        run: |
-          git status
       - name: Push
         uses: ad-m/github-push-action@master
         with:
