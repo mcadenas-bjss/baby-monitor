@@ -2,7 +2,11 @@ name: Update Package semantic version
 on:
   push:
     branches: ["main"]
-permissions: write-all
+permissions:
+  actions: write
+  deployments: write
+  repository-projects: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          token: ${{github.GITHUB_TOKEN}}
+          token: ${{ github.GITHUB_TOKEN }}
           
       - name: Update
         uses: actions/github-script@v6
@@ -43,9 +47,9 @@ jobs:
       - name: check
         run: |
           git status
-          echo {{github.GITHUB_TOKEN}}
+          echo {{ github.GITHUB_TOKEN }}
       - name: Push
-        uses: ad-m/github-push-action@master
+        run: |
+          git push origin main
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          token: ${{ GITHUB_TOKEN }}
