@@ -34,6 +34,7 @@ jobs:
                 const name = await exec.exec('git config --global user.name "GitHub"');
                 const email = await exec.exec('git config --global user.email "noreply@github.com"');
                 const child = await exec.exec("npm version " + version);
+                const push = await exec.exec("git push");
                 console.log(child);
               } else {
                 console.log("To update package version use one of the following in your PR title:");
@@ -45,8 +46,3 @@ jobs:
       - name: check
         run: |
           git status
-      - name: Push
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          git push origin main 
