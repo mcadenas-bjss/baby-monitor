@@ -14,7 +14,7 @@ permissions:
   statuses: write
 
 jobs:
-  build:
+  semver:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
@@ -46,8 +46,8 @@ jobs:
             async function update() {
               if (version) {
                 // await exec.exec(`git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}`)
-                await exec.exec('git config --global user.name "GitHub"');
-                await exec.exec('git config --global user.email "noreply@github.com"');
+                await exec.exec('git config --global user.name "github-actions[bot]"');
+                await exec.exec('git config --global user.email "github-actions[bot]@users.noreply.github.com"');
                 // await exec.exec(`git checkout ${GITHUB_REF}`)
                 await exec.exec("npm version " + version);
                 await exec.exec("git status");
