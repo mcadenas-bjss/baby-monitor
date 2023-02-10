@@ -1,6 +1,6 @@
 {
   "name": "baby-monitor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Stream live video from a raspberry pi camera",
   "main": "app.js",
   "directories": {
