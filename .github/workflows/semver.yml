@@ -4,8 +4,13 @@ on:
     branches: ["main"]
 permissions:
   actions: write
+  contents: write
   deployments: write
+  issues: write
+  packages: write
   repository-projects: write
+  security-events: write
+  statuses: write
 
 jobs:
   build:
