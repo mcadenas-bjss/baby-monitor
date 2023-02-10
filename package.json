@@ -1,0 +1,22 @@
+{
+  "name": "baby-monitor",
+  "version": "1.0.0",
+  "description": "Stream live video from a raspberry pi camera",
+  "main": "app.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "baby-monitor",
+    "raspberry-pi"
+  ],
+  "author": "ltdeng (morris.cadenas@gmail.com)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.0"
+  }
+}
