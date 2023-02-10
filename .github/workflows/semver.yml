@@ -47,7 +47,7 @@ jobs:
         run: echo "${{steps.update-step.outputs.result}}"
       - name: Push
         uses: ad-m/github-push-action@master
-        if: ${{ steps.update.outputs.result == 'true'}}
+        if: ${{ steps.update-step.outputs.result == 'true'}}
         with:
           ssh: true
           branch: ${{ github.ref }}
