@@ -51,7 +51,7 @@ jobs:
                 await exec.exec(`git checkout ${GITHUB_REF}`)
                 await exec.exec("npm version " + version);
                 await exec.exec("git status");
-                await exec.exec("git push");
+                // await exec.exec("git push");
               } else {
                 console.log("To update package version use one of the following in your PR title:");
                 console.table(semverMap);
