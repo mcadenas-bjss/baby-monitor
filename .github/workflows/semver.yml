@@ -45,7 +45,7 @@ jobs:
           result-encoding: string
       - name: Push
         uses: ad-m/github-push-action@master
-        if: ${{ steps.update.outputs.result == true}}
+        if: ${{ steps.update.outputs.result == 'true'}}
         with:
           ssh: true
           branch: ${{ github.ref }}
