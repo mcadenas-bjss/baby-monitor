@@ -18,8 +18,13 @@ jobs:
           
       - name: Update
         uses: actions/github-script@v6
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPO: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
         with:
           script: |
+            const { GITHUB_TOKEN, GITHUB_REPO, GITHUB_REF } = process.env
             const semverMap = {
               feat: "minor",
               fix: "patch",
@@ -31,8 +36,10 @@ jobs:
 
             async function update() {
               if (version) {
+                await exec.exec(`git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}`)
                 const name = await exec.exec('git config --global user.name "GitHub"');
                 const email = await exec.exec('git config --global user.email "noreply@github.com"');
+                await exec.exec(`git checkout ${GITHUB_REF}`)
                 const child = await exec.exec("npm version " + version);
                 const push = await exec.exec("git push");
                 console.log(child);
