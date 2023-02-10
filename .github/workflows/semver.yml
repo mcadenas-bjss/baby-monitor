@@ -1,0 +1,43 @@
+name: Update Package semantic version
+on:
+  push:
+    branches: ["main"]
+permissions: write-all
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+          
+      - name: Update
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const semverMap = {
+              feat: "minor",
+              fix: "patch",
+              breaking_change: "major",
+              breaking: "major"
+            };
+
+            const version = semverMap[context.payload.head_commit.message.split("(")[0]];
+
+            async function update() {
+              if (version) {
+                const name = await exec.exec('git config --global user.name "GitHub"');
+                const email = await exec.exec('git config --global user.email "noreply@github.com"');
+                const child = await exec.exec("npm version " + version);
+                console.log(child);
+              } else {
+                console.log("To update package version use one of the following in your PR title:");
+                console.table(semverMap);
+              }
+            }
+
+            update();
+      - name: Push
+        run: |
+          git push 
