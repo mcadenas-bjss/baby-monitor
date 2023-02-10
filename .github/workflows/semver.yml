@@ -28,7 +28,7 @@ jobs:
       - name: Update
         uses: actions/github-script@v6
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTION_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           GITHUB_REF: ${{ github.ref }}
         with:
@@ -45,13 +45,13 @@ jobs:
 
             async function update() {
               if (version) {
-                // await exec.exec(`git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}`)
+                await exec.exec(`git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}`)
                 await exec.exec('git config --local user.name "github-actions[bot]"');
                 await exec.exec('git config --local user.email "github-actions[bot]@users.noreply.github.com"');
-                // await exec.exec(`git checkout ${GITHUB_REF}`)
+                await exec.exec(`git checkout ${GITHUB_REF}`)
                 await exec.exec("npm version " + version);
                 await exec.exec("git status");
-                // await exec.exec("git push");
+                await exec.exec("git push");
               } else {
                 console.log("To update package version use one of the following in your PR title:");
                 console.table(semverMap);
