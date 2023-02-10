@@ -49,5 +49,3 @@ jobs:
       - name: Push
         run: |
           git push origin main
-        with:
-          token: ${{ github.token }}
