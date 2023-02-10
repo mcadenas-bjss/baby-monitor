@@ -18,12 +18,8 @@ jobs:
           
       - name: Update
         uses: actions/github-script@v6
-        env:
-          GITHUB_TOKEN: ${{github.token}}
         with:
           script: |
-            const { GITHUB_TOKEN } = process.env;
-            console.log("token:", GITHUB_TOKEN);
             const semverMap = {
               feat: "minor",
               fix: "patch",
@@ -50,6 +46,7 @@ jobs:
         run: |
           git status
       - name: Push
-        uses: ad-m/github-push-action@master
-        with:
-          branch: ${{ github.ref }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          git push origin main 
