@@ -38,6 +38,9 @@ jobs:
             }
 
             update();
+      - name: check
+        run: |
+          git status
       - name: Push
         uses: ad-m/github-push-action@master
         with:
