@@ -33,16 +33,16 @@ jobs:
                 await exec.exec('git config --local user.email "github-actions[bot]@users.noreply.github.com"');
                 await exec.exec("npm version " + version);
                 await exec.exec("git status");
-                return true;
+                return 'true';
               } else {
                 console.log("To update package version use one of the following in your PR title:");
                 console.table(semverMap);
-                return false
+                return 'false'
               }
             }
 
             update();
-          result-encoding: boolean
+          result-encoding: string
       - name: Push
         uses: ad-m/github-push-action@master
         if: ${{ steps.update.outputs.result == true}}
