@@ -45,6 +45,8 @@ jobs:
 
             update();
           result-encoding: string
+      - name: Get result
+        run: echo "${{steps.update.outputs.result}}"
       - name: Push
         uses: ad-m/github-push-action@master
         if: ${{ steps.update.outputs.result == 'true'}}
